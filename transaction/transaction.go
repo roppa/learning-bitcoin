@@ -2,6 +2,7 @@ package transaction
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 
 	"github.com/roppa/bitcoin/golang/bitcoin/bytes"
 	"github.com/roppa/bitcoin/golang/bitcoin/types"
@@ -36,10 +37,11 @@ type (
 )
 
 // TxID returns the reversed double hash of the transaction byte data.
-func (t *Transaction) TxID() []byte {
-	h := sha256.Sum256([]byte(t.ToString()))
+func (t *Transaction) TxID() string {
+	raw, _ := hex.DecodeString(t.ToString())
+	h := sha256.Sum256(raw)
 	hh := sha256.Sum256(h[:])
-	return bytes.Reverse(hh[:])
+	return hex.EncodeToString(bytes.Reverse(hh[:]))
 }
 
 func (t *Transaction) ToString() string {

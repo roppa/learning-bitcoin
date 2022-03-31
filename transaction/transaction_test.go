@@ -1,7 +1,6 @@
 package transaction
 
 import (
-	"encoding/hex"
 	"testing"
 
 	"github.com/roppa/bitcoin/golang/bitcoin/types"
@@ -17,7 +16,7 @@ func TestNew(t *testing.T) {
 	})
 }
 
-func SkipTestTxID(t *testing.T) {
+func TestTxID(t *testing.T) {
 	tx := New()
 	var sequence types.BuInt32 = 0xffffffff
 	var value types.BuInt64 = 2207563
@@ -38,7 +37,7 @@ func SkipTestTxID(t *testing.T) {
 	})
 
 	tx.Locktime = 0
-	assert.Equal(t, "c1b4e695098210a31fe02abffe9005cffc051bbe86ff33e173155bcbdc5821e3", hex.EncodeToString(tx.TxID()))
+	assert.Equal(t, "c1b4e695098210a31fe02abffe9005cffc051bbe86ff33e173155bcbdc5821e3", tx.TxID())
 }
 
 func TestToString(t *testing.T) {
