@@ -8,7 +8,7 @@ import (
 
 type Varint uint64
 
-// ToHex creates a hex version of int64.
+// ToString returns the hex value of the varint.
 func (v Varint) ToString() string {
 	h := strconv.FormatUint(uint64(v), 16)
 	if v < 253 {
