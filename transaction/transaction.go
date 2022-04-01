@@ -12,14 +12,9 @@ import (
 type (
 	// Transaction is a bitcoin transaction.
 	Transaction struct {
-		Version types.BuInt32 `json:"version"` // reversed
-
-		InputCount types.Varint `json:"inputCount"`
-		Inputs     []Input      `json:"inputs"`
-
-		OutputCount types.Varint `json:"outputCount"`
-		Outputs     []Output     `json:"outputs"`
-
+		Version  types.BuInt32 `json:"version"` // reversed
+		Inputs   []Input       `json:"inputs"`
+		Outputs  []Output      `json:"outputs"`
 		Locktime types.BuInt32 `json:"locktime"` // reversed
 	}
 )
@@ -38,12 +33,12 @@ func (t *Transaction) ToString() string {
 	tx += t.Version.ToString()
 	tx += types.Varint(len(t.Inputs)).ToString()
 
-	for i := 0; i < len(t.Inputs); i++ { // an input is composed of:
+	for i := 0; i < len(t.Inputs); i++ {
 		tx += t.Inputs[i].ToString()
 	}
 
 	tx += types.Varint(len(t.Outputs)).ToString()
-	for j := 0; j < len(t.Outputs); j++ { // an output is composed of:
+	for j := 0; j < len(t.Outputs); j++ {
 		tx += t.Outputs[j].ToString()
 	}
 
@@ -51,6 +46,7 @@ func (t *Transaction) ToString() string {
 	return tx
 }
 
+// MarshalJSON is the custom json marshal for a transaction.
 func (t *Transaction) MarshalJSON() ([]byte, error) {
 	tx := t.ToString()
 	txid := t.TxID()

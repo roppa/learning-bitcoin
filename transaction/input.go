@@ -13,7 +13,7 @@ type Input struct {
 
 // ToString returns the hex string of the input.
 func (i *Input) ToString() string {
-	input := ""
+	input := ""                         // an input is composed of:
 	input += string(i.TxID)             // input txid
 	input += i.VOut.ToString()          // vector out
 	input += i.ScriptSigSize.ToString() // size of the next unlocking script
